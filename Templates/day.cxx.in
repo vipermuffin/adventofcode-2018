@@ -1,0 +1,48 @@
+//
+//  Advent of Code 2018 Solutions: Day @DAY@
+//
+//  https://adventofcode.com/2018
+//
+//  Created by vipermuffin on @TODAY@.
+//  Copyright © 2018 vipermuffin. All rights reserved.
+//
+
+#include "@CONFIG_HEADER_NAME@"
+#include "AoCUtils.h"
+//Common Libraries
+//#include <algorithm> //std::sort
+//#include <chrono>
+//#include <iostream>
+//#include <fstream> //ifstream
+//#include <functional> //std::function
+//#include <iomanip> //setfill setw hex
+//#include <map>
+//#include <math.h> //sqrt
+//#include <numeric> //std::accumulate
+//#include <queue>
+//#include <regex>
+//#include <set>
+//#include <sstream>
+//#include <thread>
+//#include <tuple>
+//#include <unordered_map>
+//#include <unordered_set>
+
+
+using namespace std;
+namespace @NAMESPACE@ {
+
+	static const std::string InputFileName = "@INPUT_FILE_NAME@";
+	std::string solvea() {
+    auto input = parseFileForNumberPerLine(InputFileName);
+
+		return "---";
+	}
+
+	std::string solveb() {
+    auto input = parseFileForNumberPerLine(InputFileName);
+
+		return "---";
+	}
+
+}

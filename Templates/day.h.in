@@ -1,0 +1,16 @@
+//
+//  Advent of Code 2018 Solutions: Day @DAY@
+//
+//  https://adventofcode.com/2018
+//
+//  Created by vipermuffin on @TODAY@.
+//  Copyright © 2018 vipermuffin. All rights reserved.
+//
+#pragma once
+#include <string>
+#include <vector>
+
+namespace @NAMESPACE@ {
+//Function Definitions
+
+}

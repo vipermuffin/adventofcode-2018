@@ -1,0 +1,11 @@
+
+cmake_minimum_required (VERSION 3.1)
+include(CMakeVars.txt)
+string(TIMESTAMP TODAY "%m/%d/%Y")
+set (NAMESPACE "Aoc${DAY_PREFIX}")
+set (INPUT_FILE_NAME "${DAY_PREFIX}.txt")
+set (CONFIG_HEADER_NAME "${DAY_PREFIX}.h")
+configure_file("${PROJECT_SOURCE_DIR}/../Templates/main.cxx.in" "${PROJECT_SOURCE_DIR}/${DAY_PREFIX}_main.cxx")
+configure_file("${PROJECT_SOURCE_DIR}/../Templates/day.cxx.in" "${PROJECT_SOURCE_DIR}/${DAY_PREFIX}.cxx")
+configure_file("${PROJECT_SOURCE_DIR}/../Templates/day.h.in" "${PROJECT_SOURCE_DIR}/${CONFIG_HEADER_NAME}")
+configure_file("${PROJECT_SOURCE_DIR}/../Templates/unitTest.cxx.in" "${PROJECT_SOURCE_DIR}/${DAY_PREFIX}_tests.cxx")
