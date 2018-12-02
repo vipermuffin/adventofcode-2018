@@ -30,12 +30,13 @@ set(PROJ_RESOURCE_FILES	${INPUT_FILE_NAME})
 set_source_files_properties(${INPUT_FILE_NAME} PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties(${CONFIG_HEADER_NAME} PROPERTIES HEADER_FILE_ONLY TRUE)
 set_source_files_properties("${PROJECT_SOURCE_DIR}/../lib/AoCUtils.h" PROPERTIES HEADER_FILE_ONLY TRUE)
-list(APPEND SOURCES ${PROJ_RESOURCE_FILES} ${CONFIG_HEADER_NAME} "${PROJECT_SOURCE_DIR}/../lib/AoCUtils.h")
+
+list(APPEND SOURCES ${PROJ_RESOURCE_FILES} ${CONFIG_HEADER_NAME} "${PROJECT_SOURCE_DIR}/../lib/AoCUtils.h" )
+
 if(USEMD5)
     set_source_files_properties("${PROJECT_SOURCE_DIR}/../lib/md5.hpp" PROPERTIES HEADER_FILE_ONLY TRUE)
     list(APPEND SOURCES "${PROJECT_SOURCE_DIR}/../lib/md5.hpp")
 endif()
-
 #Setup Executable
 add_executable (${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} "${PROJECT_NAME}_lib")
