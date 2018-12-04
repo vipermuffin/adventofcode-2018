@@ -10,86 +10,60 @@
 #include "Day03.h"
 #include "AoCUtils.h"
 //Common Libraries
-//#include <algorithm> //std::sort
-//#include <chrono>
-//#include <iostream>
-//#include <fstream> //ifstream
-//#include <functional> //std::function
-//#include <iomanip> //setfill setw hex
-//#include <map>
-//#include <math.h> //sqrt
-//#include <numeric> //std::accumulate
-//#include <queue>
 #include <regex>
-//#include <set>
-#include <sstream>
-//#include <thread>
-//#include <tuple>
-#include <unordered_map>
-//#include <unordered_set>
+
 
 
 using namespace std;
 namespace AocDay03 {
     
+    //Used to reduce parsing twice in part 2
+    std::unordered_map<uint32_t, int>& getInputMapRef(const std::vector<std::string>& input);
+    
 	static const std::string InputFileName = "Day03.txt";
+    static const std::regex re{"#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)"};
+    const int Xi = 0;
+    const int Yi = 1;
+    union {
+        uint16_t pairs[2];
+        uint32_t val;
+    } tmp;
+    
+    
 	std::string solvea() {
         auto input = parseFileForLines(InputFileName);
-        unordered_map<string, int> claims;
-        int sqFt{0};
-
-        regex re{"#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)"};
-        for(const auto& claim : input) {
-            try {
-                sregex_iterator next{claim.begin(),claim.end(),re};
-                sregex_iterator end;
-                while(next != end) {
-                    smatch match = *next;
-//                    int id = stoi(match[1]);
-                    int lOffset = stoi(match[2]);
-                    int tOffset = stoi(match[3]);
-                    int width = stoi(match[4]);
-                    int height = stoi(match[5]);
-                    for(int y = tOffset;y < tOffset + height;++y) {
-                        for(int x = lOffset; x < lOffset + width;++x) {
-                            auto p = to_string(x) + "," + to_string(y);
-                            if(++claims[p] == 2) {
-                                ++sqFt;
-                            }
-                        }
-                    }
-                    ++next;
-                }
-            } catch (regex_error& e ) {
-                //Syntax error in regex
-                cout << "ERROR: " << e.what() << endl;
-            }
-        }
+        const auto& claims = getInputMapRef(input);
         
-		return to_string(sqFt);
+		return to_string(getSqFtOverlap(claims));
 	}
 
 	std::string solveb() {
         auto input = parseFileForLines(InputFileName);
-        unordered_map<string, int> claims;
-        int sqFt{0};
+        auto& claims = getInputMapRef(input);
         
-        regex re{"#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)"};
+        return to_string(getIdNoOverlap(claims, input));
+	}
+    
+    std::unordered_map<uint32_t, int> getInputMap(const std::vector<std::string>& input) {
+        unordered_map<uint32_t, int> claims;
+        if(claims.size() != 0)
+            return claims;
+        string claim;
         for(const auto& claim : input) {
             try {
                 sregex_iterator next{claim.begin(),claim.end(),re};
                 sregex_iterator end;
                 while(next != end) {
                     smatch match = *next;
-//                    int id = stoi(match[1]);
                     int lOffset = stoi(match[2]);
                     int tOffset = stoi(match[3]);
                     int width = stoi(match[4]);
                     int height = stoi(match[5]);
                     for(int y = tOffset;y < tOffset + height;++y) {
                         for(int x = lOffset; x < lOffset + width;++x) {
-                            auto p = to_string(x) + "," + to_string(y);
-                            ++claims[p];
+                            tmp.pairs[Xi] = x;
+                            tmp.pairs[Yi] = y;
+                            ++claims[tmp.val];
                         }
                     }
                     ++next;
@@ -99,7 +73,31 @@ namespace AocDay03 {
                 cout << "ERROR: " << e.what() << endl;
             }
         }
-        
+        return claims;
+    }
+
+    std::unordered_map<uint32_t, int>& getInputMapRef(const std::vector<std::string>& input) {
+        static unordered_map<uint32_t, int> claims;
+        static int inputSize{0};
+        if(claims.size() != 0 && inputSize == input.size())
+            return claims;
+        inputSize = input.size();
+        claims.clear();
+        claims = getInputMap(input);
+        return claims;
+    }
+    
+    int getSqFtOverlap(const std::unordered_map<uint32_t, int>& claims) {
+        int sqFt{0};
+        for(const auto& kvp : claims) {
+            if(kvp.second >= 2) {
+                ++sqFt;
+            }
+        }
+        return sqFt;
+    }
+    
+    int getIdNoOverlap(std::unordered_map<uint32_t, int>&claims, const std::vector<string>& input) {
         for(const auto& claim : input) {
             try {
                 sregex_iterator next{claim.begin(),claim.end(),re};
@@ -114,14 +112,18 @@ namespace AocDay03 {
                     bool overlap{false};
                     for(int y = tOffset;y < tOffset + height;++y) {
                         for(int x = lOffset; x < lOffset + width;++x) {
-                            auto p = to_string(x) + "," + to_string(y);
-                            if(claims[p] != 1) {
+                            tmp.pairs[Xi] = x;
+                            tmp.pairs[Yi] = y;
+                            if(claims[tmp.val] != 1) {
                                 overlap = true;
+                                break;
                             }
                         }
+                        if(overlap)
+                            break;
                     }
                     if(!overlap) {
-                        return to_string(id);
+                        return id;
                     }
                     ++next;
                 }
@@ -130,12 +132,6 @@ namespace AocDay03 {
                 cout << "ERROR: " << e.what() << endl;
             }
         }
-        
-        return "---";
-	}
-    
-    void parseClaim(const std::string& claim) {
-
+        return -1;
     }
-
 }

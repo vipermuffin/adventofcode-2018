@@ -28,17 +28,21 @@ TEST(SolvePartB, FinalSolution) {
 	EXPECT_EQ("625", solveb());
 }
 
-TEST(Example,Test1) {
-	int x = 0;
-	EXPECT_EQ(0,x);
-}
-
 TEST(Example,Test2) {
-	int x = 0;
-	EXPECT_EQ(0,x);
+    vector<string> x {
+        "#1 @ 1,3: 4x4",
+        "#2 @ 3,1: 4x4",
+        "#3 @ 5,5: 2x2"
+    };
+	EXPECT_EQ(4,getSqFtOverlap(getInputMap(x)));
 }
 
 TEST(Example,Test3) {
-	int x = 0;
-	EXPECT_EQ(0,x);
+    vector<string> x {
+        "#1 @ 1,3: 4x4",
+        "#2 @ 3,1: 4x4",
+        "#3 @ 5,5: 2x2"
+    };
+    auto m = getInputMap(x);
+	EXPECT_EQ(3,getIdNoOverlap(m, x));
 }

@@ -9,8 +9,11 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 namespace AocDay03 {
 //Function Definitions
-
+    std::unordered_map<uint32_t, int> getInputMap(const std::vector<std::string>& input);
+    int getSqFtOverlap(const std::unordered_map<uint32_t, int>&);
+    int getIdNoOverlap(std::unordered_map<uint32_t, int>&claims, const std::vector<std::string>& input);
 }
