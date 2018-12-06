@@ -12,5 +12,5 @@
 
 namespace AocDay05 {
 //Function Definitions
-
+    void performChemistry(const std::string& input, int& finalStrSize, const char* c1 = nullptr, const char* c2 = nullptr);
 }
