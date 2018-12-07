@@ -17,7 +17,7 @@
 
 using namespace std;
 namespace AocDay05 {
-
+    constexpr bool THREADED = true;
 	static const std::string InputFileName = "Day05.txt";
 	std::string solvea() {
         auto input = parseFileForLines(InputFileName);
@@ -39,7 +39,11 @@ namespace AocDay05 {
         vector<thread> tV{};
         
         for(int x = 0;x < abc.size();++x) {
-            tV.push_back(thread(performChemistry,std::ref(input[0]), std::ref(mins[x]),&abc[x],&ABC[x]));
+            if constexpr(THREADED) {
+            tV.emplace_back(performChemistry,std::ref(input[0]), std::ref(mins[x]),&abc[x],&ABC[x]);
+            } else {
+                performChemistry(input[0], mins[x],&abc[x],&ABC[x]);
+            }
         }
         
         for_each(tV.begin(), tV.end(), do_join);
@@ -51,24 +55,46 @@ namespace AocDay05 {
     void performChemistry(const std::string& input, int& finalStrSize, const char* c1, const char* c2) {
         int diff = 'a' - 'A';
         auto iStr{input};
-        int d = 1;
-        while(d != 0) {
-            stringstream ss;
-            d = 0;
-            int i{0};
-            for(i = 0;i<iStr.size()-1;++i) {
-                if((c1 != nullptr && iStr[i] == *c1) || (c2 != nullptr && iStr[i] == *c2)) {
-                } else if(abs(iStr[i] - iStr[i+1]) == diff) {
-                    ++i;
-                    ++d;
-                } else {
-                    ss << iStr[i];
+        bool repeat = true;
+        while(repeat) {
+            string ss{};
+            ss.reserve(iStr.length());
+            auto front = iStr.begin();
+            auto itr = front;
+            auto next = itr+1;
+            bool d = false;
+            while(!d) {
+                d = true;
+                
+                //Need to check next against c1 and c2 and adjust pointers accordingly
+                while((itr >= front && next < iStr.end()) &&
+                      !((c1 != nullptr && *itr == *c1) || (c2 != nullptr && *itr == *c2) || (abs(*itr - *next) == diff))) {
+                    ++itr;
+                    ++next;
                 }
+                
+                while((itr >= front && next < iStr.end()) &&
+                      ((c1 != nullptr && *itr == *c1) || (c2 != nullptr && *itr == *c2) || (abs(*itr - *next) == diff))) {
+                    if((c1 != nullptr && *itr == *c1) || (c2 != nullptr && *itr == *c2)) {
+                        --itr;
+                    } else {
+                        --itr;
+                        ++next;
+                    }
+                    d = false;
+                }
+                
+                if(front <= itr) {
+                    if(itr < iStr.end()) {
+                        ++itr;
+                    }
+                    ss.append(front,itr);
+                }
+                front = next;
+                itr = next++;
             }
-            if(i==iStr.size()-1) {
-                ss << iStr[i];
-            }
-            iStr = ss.str();
+            repeat = iStr != ss;
+            iStr = ss;
         }
         finalStrSize = iStr.size();
     }
