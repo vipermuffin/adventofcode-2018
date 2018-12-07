@@ -21,21 +21,25 @@ using namespace std;
 using namespace AocDay05;
 
 TEST(SolvePartA, FinalSolution) {
-	EXPECT_EQ("10132", solvea());
+    EXPECT_EQ("10132", solvea());
 }
 
 TEST(SolvePartB, FinalSolution) {
-	EXPECT_EQ("4572", solveb());
+    EXPECT_EQ("4572", solveb());
 }
 
 TEST(Example,Test1) {
-	int x = 0;
-	EXPECT_EQ(0,x);
+	string s{"dabAcCaCBAcCcaDA"};
+    int x;
+    performChemistry(s, x);
+	EXPECT_EQ(10,x);
 }
 
 TEST(Example,Test2) {
-	int x = 0;
-	EXPECT_EQ(0,x);
+    string s{"dabAcCaCcBAcCcaDA"};
+    int x;
+    performChemistry(s, x);
+    EXPECT_EQ(5,x);
 }
 
 TEST(Example,Test3) {
