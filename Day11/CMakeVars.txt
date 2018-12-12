@@ -1,0 +1,2 @@
+set (DAY 11)
+set (DAY_PREFIX "Day11")
