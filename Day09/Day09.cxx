@@ -10,6 +10,7 @@
 #include "Day09.h"
 #include "AoCUtils.h"
 //Common Libraries
+#include <algorithm>
 #include <list>
 
 using namespace std;

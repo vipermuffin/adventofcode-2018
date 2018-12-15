@@ -10,6 +10,7 @@
 #include "Day04.h"
 #include "AoCUtils.h"
 //Common Libraries
+#include <algorithm>
 #include <unordered_map>
 
 using namespace std;

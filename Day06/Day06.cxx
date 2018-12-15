@@ -10,6 +10,7 @@
 #include "Day06.h"
 #include "AoCUtils.h"
 //Common Libraries
+#include <climits>
 #include <unordered_map>
 #include <unordered_set>
 

@@ -10,7 +10,8 @@
 #include "Day11.h"
 #include "AoCUtils.h"
 //Common Libraries
-//#include <algorithm> //std::sort
+#include <algorithm> //std::sort
+#include <climits>
 //#include <chrono>
 //#include <iostream>
 //#include <fstream> //ifstream
