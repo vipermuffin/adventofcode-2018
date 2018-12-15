@@ -25,7 +25,7 @@ TEST(SolvePartA, FinalSolution) {
 }
 
 TEST(SolvePartB, FinalSolution) {
-	EXPECT_EQ("---", solveb());
+	EXPECT_EQ("234,197,14", solveb());
 }
 
 TEST(Example,Test1) {
