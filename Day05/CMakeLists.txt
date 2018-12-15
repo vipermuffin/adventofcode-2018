@@ -38,7 +38,9 @@ endif()
 
 #Setup Executable
 add_executable (${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} "${PROJECT_NAME}_lib")
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(${PROJECT_NAME} "${PROJECT_NAME}_lib" Threads::Threads)
 set_target_properties(${PROJECT_NAME} PROPERTIES RESOURCE ${PROJ_RESOURCE_FILES})
 
 #Setup Unit Testing

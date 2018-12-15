@@ -11,6 +11,7 @@
 #include "AoCUtils.h"
 //Common Libraries
 #include <sstream>
+#include <algorithm>
 #include <cmath>
 #include <array>
 #include <thread>

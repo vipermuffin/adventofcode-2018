@@ -11,6 +11,7 @@
 #include "AoCUtils.h"
 //Common Libraries
 #include <algorithm> //std::sort
+#include <climits>
 
 using namespace std;
 using namespace AocUtils;
