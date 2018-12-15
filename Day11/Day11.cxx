@@ -67,36 +67,60 @@ namespace AocDay11 {
         
         return powerLevel;
     }
+    const int GRID_SIZE = 300;
     
-    string findTopLeft(int sn, int* maxVal, int sq) {
-        const int GRID_SIZE = 300;
-        array<array<int,GRID_SIZE>,GRID_SIZE> grid;
-        unordered_map<string, int> m;
-        for(int x = 0;x < GRID_SIZE;++x) {
-            for(int y = 0;y < GRID_SIZE;++y) {
-                grid[x][y] = calcPowerLevel(x, y, sn);
+    const std::array<std::array<int,GRID_SIZE>,GRID_SIZE>& getGrid(const int sn) {
+        static int lastSn = -1;
+        static bool generated = false;
+        static array<array<int,GRID_SIZE>,GRID_SIZE> grid;
+        
+        generated = generated && (lastSn==sn);
+        
+        if(!generated) {
+            //Calculate power levels
+            for(int x = 0;x < GRID_SIZE;++x) {
+                for(int y = 0;y < GRID_SIZE;++y) {
+                    grid[x][y] = calcPowerLevel(x, y, sn);
+                }
             }
+            //Generate Summed Table
+            for(int y = 0; y < GRID_SIZE; ++y) {
+                for(int x = 0; x < GRID_SIZE; ++x) {
+                    auto val = grid[x][y];
+                    if(x > 0) {
+                        val += grid[x-1][y];
+                    }
+                    if(y > 0) {
+                        val += grid[x][y-1];
+                    }
+                    if(x > 0 && y > 0) {
+                        val -= grid[x-1][y-1];
+                    }
+                    grid[x][y] = val;
+                }
+            }
+            
+            lastSn = sn;
+            generated = true;
         }
         
-        for(int y = 0; y < GRID_SIZE; ++y) {
-            for(int x = 0; x < GRID_SIZE; ++x) {
-                auto val = grid[x][y];
-                if(x > 0) {
-                    val += grid[x-1][y];
-                }
-                if(y > 0) {
-                    val += grid[x][y-1];
-                }
-                if(x > 0 && y > 0) {
-                    val -= grid[x-1][y-1];
-                }
-                grid[x][y] = val;
-            }
-        }
+        return grid;
+    }
+    
+    string findTopLeft(int sn, int* maxVal, int sq) {
+        union {
+            int xy[2];
+            long val;
+        } hashId;
+        
+        unordered_map<long, int> m;
+        auto grid = getGrid(sn);
         
         for(int x = 0;x <= GRID_SIZE-sq;++x) {
             for(int y = 0;y <= GRID_SIZE-sq;++y) {
-                string output = to_string(x) + "," + to_string(y);
+                hashId.xy[0] = x;
+                hashId.xy[1] = y;
+                long output = hashId.val;
                 if(x == 0 && y == 0) {
                     m[output] = grid[x+sq-1][y+sq-1];
                 } else if(x == 0){
@@ -108,17 +132,20 @@ namespace AocDay11 {
                 }
             }
         }
+        
         int max = INT_MIN;
-        string maxId;
         for(const auto& p : m) {
             if(p.second > max) {
                 max = p.second;
-                maxId = p.first;
+                hashId.val = p.first;
             }
         }
         if(maxVal != nullptr) {
             *maxVal = max;
         }
-        return maxId;
+        string output = to_string(hashId.xy[0]);
+        output.append(",");
+        output.append(to_string(hashId.xy[1]));
+        return output;
     }
 }
