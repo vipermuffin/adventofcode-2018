@@ -10,7 +10,9 @@
 #include "@CONFIG_HEADER_NAME@"
 #include "AoCUtils.h"
 //Common Libraries
-//#include <algorithm> //std::sort
+#include <algorithm> //std::sort, find, for_each, max_element, etc
+//#include <array>
+#include <climits>   //INT_MIN, INT_MAX, etc.
 //#include <chrono>
 //#include <iostream>
 //#include <fstream> //ifstream
