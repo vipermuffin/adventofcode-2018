@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-if [[ $1 == "" ]]
+if [[ $1 == "" || $2 == "" ]]
 then
-  echo "Usage: ./GenerateDay.sh <day>"
+  echo "Usage: ./GenerateDay.sh <day> <year>"
 else
   inputDay="$(printf "Day%02d" $1)"
-  python ./Tools/DownloadDay.py $1
+  python ./Tools/DownloadDay.py $1 $2
   open -a "Markdown Pro" $inputDay/$inputDay.md
   cp ./Templates/BootstrapCMakeLists.txt.in "./$inputDay/CMakeLists.txt"
   cd $inputDay/bootstrap
@@ -17,5 +17,5 @@ else
   cmake -G Xcode ..
   xcodebuild -scheme ALL_BUILD build
   cp $inputDay.txt Debug/
-  open -a Xcode 2018_AoC_VM_$inputDay.xcodeproj
+  open -a Xcode $2_AoC_VM_$inputDay.xcodeproj
 fi

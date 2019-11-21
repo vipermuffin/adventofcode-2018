@@ -1,10 +1,10 @@
 //
-//  Advent of Code 2018 Solutions: Day @DAY@
+//  Advent of Code @YEAR@ Solutions: Day @DAY@
 //
-//  https://adventofcode.com/2018
+//  https://adventofcode.com/@YEAR@
 //
 //  Created by vipermuffin on @TODAY@.
-//  Copyright © 2018 vipermuffin. All rights reserved.
+//  Copyright © @YEAR@ vipermuffin. All rights reserved.
 //
 
 #include "@CONFIG_HEADER_NAME@"

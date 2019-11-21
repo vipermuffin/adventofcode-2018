@@ -3,8 +3,8 @@
 //
 //  https://adventofcode.com/2018
 //
-//  Created by Jason Fessel on .
-//  Copyright © 2018 Jason Fessel. All rights reserved.
+//  Created by vipermuffin 
+//  Copyright © 2018 vipermuffin. All rights reserved.
 //
 #pragma once
 #include <string>

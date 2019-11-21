@@ -1,10 +1,10 @@
 //
-//  Advent of Code 2018 Main Runner: Day @DAY@
+//  Advent of Code @YEAR@ Main Runner: Day @DAY@
 //
-//  https://adventofcode.com/2018
+//  https://adventofcode.com/@YEAR@
 //
 //  Created by vipermuffin on @TODAY@.
-//  Copyright © 2018 vipermuffin. All rights reserved.
+//  Copyright © @YEAR@ vipermuffin. All rights reserved.
 //
 #include <stdio.h>
 #include <string>

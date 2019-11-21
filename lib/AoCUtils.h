@@ -2,8 +2,8 @@
 //  AoCUtils.hpp
 //  AdventOfCode
 //
-//  Created by Jason Fessel on 12/4/17.
-//  Copyright © 2017 Jason Fessel. All rights reserved.
+//  Created by vipermuffin 
+//  Copyright © 2018 vipermuffin. All rights reserved.
 //
 
 #pragma once

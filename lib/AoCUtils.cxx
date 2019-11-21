@@ -1,9 +1,10 @@
 //
-//  AoCUtils.cpp
-//  AdventOfCode
+//  Advent of Code Utilities
 //
-//  Created by Jason Fessel on 12/4/17.
-//  Copyright © 2017 Jason Fessel. All rights reserved.
+//  https://adventofcode.com
+//
+//  Created by vipermuffin 
+//  Copyright © 2018 vipermuffin. All rights reserved.
 //
 
 #include "AoCUtils.h"
@@ -34,7 +35,7 @@ std::vector<std::vector<int>> parseFileForNumbers(const std::string& fileName)
    std::vector<std::vector<int>> spreadsheet{};
    auto lines{parseFileForLines(fileName)};
    
-   for(auto line : lines) {
+   for(const auto& line : lines) {
       spreadsheet.push_back(parseLineForNumbers(line));
    }
    
@@ -45,7 +46,7 @@ std::vector<int> parseFileForNumberPerLine(const std::string& fileName)
    std::vector<int> spreadsheet{};
    auto lines{parseFileForLines(fileName)};
    
-   for(auto line : lines) {
+   for(const auto& line : lines) {
       try {
          spreadsheet.push_back(stoi(line));
       } catch (const std::invalid_argument&) {
@@ -83,7 +84,7 @@ std::vector<int> parseLineForNumbers(const std::string& line)
 {
    vector<int> numbers{};
    vector<string> words{parseLineForWords(line)};
-   for(auto word : words) {
+   for(const auto& word : words) {
       try {
          numbers.push_back(stoi(word));
       } catch (const std::invalid_argument&) {
@@ -96,7 +97,7 @@ std::vector<int> parseLineForNumbers(const std::string& line)
 std::string convertVectorToString(const std::vector<int>&input)
 {
    string s{};
-   for(auto num : input) {
+   for(const auto& num : input) {
       s.append(to_string(num));
    }
    return s;
